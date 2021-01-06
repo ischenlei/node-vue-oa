@@ -5,6 +5,7 @@ const app = express()
 
 app.use(require('cors')())
 app.use(express.json())
+app.use('/uploads', express.static(__dirname + '/uploads'))
 
 require('./routes/admin')(app)  //app就是传入的实参. 这个app是express()方法创建的web服务器.
 require('./plugins/db')(app)
