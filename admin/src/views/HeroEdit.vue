@@ -199,8 +199,8 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  width: 178px;
-  height: 178px;
+  width: 5rem;
+  height: 5rem;
 }
 
 .avatar-uploader:hover {
@@ -210,15 +210,15 @@ export default {
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
+  width: 5rem;
+  height: 5rem;
+  line-height: 5rem;
   text-align: center;
 }
 
 .avatar {
-  width: 178px;
-  height: 178px;
+  width: 5rem;
+  height: 5rem;
   display: block;
 }
 </style>
