@@ -3,6 +3,8 @@ const express = require("express")
 //创建网站服务器
 const app = express()
 
+app.set('secret', 'sdfeojgnvrjinfjmc')
+
 app.use(require('cors')())
 app.use(express.json())
 app.use('/uploads', express.static(__dirname + '/uploads'))
