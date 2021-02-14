@@ -90,7 +90,6 @@ module.exports = app => {  //这里的app是一个形参
 
   //错误处理
   app.use(async (err, req, res, next) => {
-    console.log(err.statusCode)
     res.status(err.statusCode).send({
       message: err.message
     })
