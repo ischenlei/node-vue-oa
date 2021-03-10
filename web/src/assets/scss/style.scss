@@ -1,3 +1,5 @@
+@import 'variables';
+
 //reset
 * {
   box-sizing: border-box;
@@ -16,45 +18,38 @@ a {
   color: #999;
 }
 
-//colors
-$colors: (
-  'primary': #db9e3f,
-  'white': #fff,
-  'light': #f9f9f9,
-  'black': #000,
-  'dark': #222,
-  'dark-1': #343440,
-  'grey': #999,
-);
+
 @each $key, $value in $colors {
   .text-#{$key} {
     color: $value;
   }
   .bg-#{$key} {
-    color: $value;
+    background-color: $value;
   }
 };
 
 //text
 @each $var in (left, center, right) {
   .text-#{$var} {
-    text-align: $var;
+    text-align: $var !important;
   }
 };
 
-//font-size
-$base-font-size: 1rem;
-$font-sizes: (
-  xs: 0.769,  //10px
-  sm: 0.923,  //12px
-  md: 1,  //13px
-  lg: 1.077,  //14px
-  lx: 1.231,  //16px
-);
 @each $key, $value in $font-sizes {
   .fs-#{$key} {
     font-size: $value * $base-font-size;
   }
+}
+
+//width, height
+.w-100 {
+  width: 100%;
+}
+.h-100 {
+  width: 100%;
+}
+.h-swiper {
+  height: 15rem;
 }
 
 //flex
@@ -64,24 +59,13 @@ $font-sizes: (
 .flex-column {
   flex-direction: column;
 }
-$flex-jc: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  between: space-between,
-  around: space-around
-);
+
 @each $key, $value in $flex-jc {
   .jc-#{$key} {
     justify-content: $value;
   }
 }
-$flex-ai: (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  stretch: stretch
-);
+
 @each $key, $value in $flex-ai {
   .ai-#{$key} {
     align-items: $value;
@@ -94,26 +78,6 @@ $flex-ai: (
   flex-grow: 1;
 }
 
-//spacing
-$spacing-types: (
-  m: margin,
-  p: padding,
-);
-$spacing-directions: (
-  t: top,
-  r: right,
-  b: bottom,
-  l: left
-);
-$spacing-base-size: 1rem;
-$spacing-sizes: (
-  0: 0,
-  1: 0.25,
-  2: 0.5,
-  3: 1,
-  4: 1.5,
-  5: 3,
-);
 @each $typeKey, $type in $spacing-types {
   //.m-1
   @each $sizeKey, $size in $spacing-sizes {
@@ -140,6 +104,17 @@ $spacing-sizes: (
       .#{$typeKey}#{$dirKey}-#{$sizeKey} {
         #{$type}-#{$dir}: $size * $spacing-base-size;
       }
+    }
+  }
+}
+
+//nav
+.nav {
+  .nav-item {
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0.2rem;
+    &.active {
+      border-bottom: 2px solid #fff;
     }
   }
 }
