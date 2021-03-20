@@ -1,10 +1,10 @@
 <template>
   <div class="about">
-    <div class="topbar bg-black py-2">
-      This is an topBar
-    </div>
+<!--    <div class="topbar bg-black py-2">-->
+<!--      This is an topBar-->
+<!--    </div>-->
     <div class="bg-primary pt-3 pb-2">
-      <div class="nav d-flex jc-around pb-1">
+      <div class="nav nav-inverse pb-1 jc-around">
         <div class="nav-item text-white active">
           <router-link class="nav-link" tag="div" to="/">首页</router-link>
         </div>

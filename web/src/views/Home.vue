@@ -23,11 +23,43 @@
       </div>
     </div>
     <!--  end of nav icons  -->
+    <div class="card bg-white p-3 mt-3 ">
+      <div class="card-header d-flex ai-center">
+        <i class="iconfont icon-cc-menu-circle"></i>
+        <div class="fs-xl flex-1 px-2">新闻资讯</div>
+        <i class="iconfont icon-menu"></i>
+      </div>
+      <div class="card-body pt-3">
+        <div class="nav jc-around">
+          <div
+            class="nav-item"
+            :class="{active: active === index}"
+            v-for="(item, index) in newsCats"
+            :key="index"
+            @click="active = index"
+          >
+            <div class="nav-link">{{item.name}}</div>
+          </div>
+        </div>
+        <div class="pt-3">
+          <swiper>
+            <swiper-slide v-for="(item, index) in newsCats" :key="index">
+              <div class="py-3" v-for="item in item.newList" :key="item">
+                <span>[{{ item.cateGoryName }}]</span>
+                <span>|</span>
+                <span>{{ item.title }}</span>
+                <span>{{ item.date }}</span>
+              </div>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
-// import ECharts from "echarts";
 export default {
   name: 'Home',
   data() {
@@ -39,7 +71,34 @@ export default {
         autoplay: {
           delay: 1500
         }
-      }
+      },
+      active: 0,
+      newsCats: [
+        {
+          name: '热门',
+          newList: new Array(5).fill({}).map(v => ({
+            cateGoryName: '热门',
+            title: 'title title title title',
+            date: '06/01'
+          }))
+        },
+        {
+          name: '新闻',
+          newList: new Array(5).fill({}).map(v => ({
+            cateGoryName: '新闻',
+            title: 'title title title title',
+            date: '06/01'
+          }))
+        },
+        {
+          name: '公告',
+          newList: new Array(5).fill({}).map(v => ({
+            cateGoryName: '公告',
+            title: 'title title title title',
+            date: '06/01'
+          }))
+        }
+      ]
     }
   },
   mounted() {
