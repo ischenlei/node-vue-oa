@@ -36,19 +36,22 @@
             :class="{active: active === index}"
             v-for="(item, index) in newsCats"
             :key="index"
-            @click="active = index"
+            @click="$refs.list.swiper.slideTo(index)"
           >
             <div class="nav-link">{{item.name}}</div>
           </div>
         </div>
         <div class="pt-3">
-          <swiper>
+          <swiper
+            ref="list"
+            @slide-change="() => active = $refs.list.swiper.realIndex"
+          >
             <swiper-slide v-for="(item, index) in newsCats" :key="index">
-              <div class="py-3" v-for="item in item.newList" :key="item">
-                <span>[{{ item.cateGoryName }}]</span>
-                <span>|</span>
-                <span>{{ item.title }}</span>
-                <span>{{ item.date }}</span>
+              <div class="py-3 fs-lg d-flex" v-for="item in newsCats[index].newsList" :key="item">
+                <span class="text-info">[{{ item.cateGoryName }}]</span>
+                <span class="px-2">|</span>
+                <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{ item.title }}</span>
+                <span class="text-grey fs-sm">{{ item.createdAt | date }}</span>
               </div>
             </swiper-slide>
           </swiper>
@@ -60,8 +63,14 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 export default {
   name: 'Home',
+  filters: {
+    date(val) {
+      return dayjs(val).format('MM/DD')
+    }
+  },
   data() {
     return {
       swiperOptions: {
@@ -73,39 +82,17 @@ export default {
         }
       },
       active: 0,
-      newsCats: [
-        {
-          name: '热门',
-          newList: new Array(5).fill({}).map(v => ({
-            cateGoryName: '热门',
-            title: 'title title title title',
-            date: '06/01'
-          }))
-        },
-        {
-          name: '新闻',
-          newList: new Array(5).fill({}).map(v => ({
-            cateGoryName: '新闻',
-            title: 'title title title title',
-            date: '06/01'
-          }))
-        },
-        {
-          name: '公告',
-          newList: new Array(5).fill({}).map(v => ({
-            cateGoryName: '公告',
-            title: 'title title title title',
-            date: '06/01'
-          }))
-        }
-      ]
+      newsCats: []
     }
   },
-  mounted() {
-
+  created() {
+    this.fetchNewsCats()
   },
   methods: {
-
+    async fetchNewsCats() {
+      const res = await this.$http.get('/news/list')
+      this.newsCats = res.data
+    }
   }
 }
 </script>

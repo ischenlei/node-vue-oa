@@ -5,4 +5,7 @@ module.exports = app => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
+
+  //引用所有model
+  require('require-all')(__dirname + '/../models')
 }
