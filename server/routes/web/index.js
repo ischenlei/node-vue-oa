@@ -27,6 +27,7 @@ module.exports = app => {
     res.send(newsList)
   })
 
+  //获取新闻资讯
   router.get('/news/list', async (req, res) => {
     // const parent = await Category.findOne({
     //   name: '新闻分类'
@@ -73,6 +74,12 @@ module.exports = app => {
     })
 
     res.send(cats)
+  })
+
+  //获取文章详情
+  router.get('/articles/:id', async (req, res) => {
+    const data = await Article.findById(req.params.id).lean()
+    res.send(data)
   })
 
   app.use('/web/api', router)

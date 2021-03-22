@@ -47,12 +47,18 @@
             @slide-change="() => active = $refs.list.swiper.realIndex"
           >
             <swiper-slide v-for="(item, index) in newsCats" :key="index">
-              <div class="py-3 fs-lg d-flex" v-for="item in newsCats[index].newsList" :key="item">
+              <router-link
+                tag="div"
+                :to="`/articles/${item._id}`"
+                class="py-3 fs-lg d-flex"
+                v-for="(item, index) in newsCats[index].newsList"
+                :key="index"
+              >
                 <span class="text-info">[{{ item.cateGoryName }}]</span>
                 <span class="px-2">|</span>
                 <span class="flex-1 text-dark-1 text-ellipsis pr-2">{{ item.title }}</span>
                 <span class="text-grey fs-sm">{{ item.createdAt | date }}</span>
-              </div>
+              </router-link>
             </swiper-slide>
           </swiper>
         </div>
