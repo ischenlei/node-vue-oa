@@ -8,9 +8,9 @@
         <div class="nav-item text-white active">
           <router-link class="nav-link" tag="div" to="/">首页</router-link>
         </div>
-        <div class="nav-item text-white ">
-          <router-link class="nav-link" tag="div" to="/">个人中心</router-link>
-        </div>
+<!--        <div class="nav-item text-white ">-->
+<!--          <router-link class="nav-link" tag="div" to="/">个人中心</router-link>-->
+<!--        </div>-->
       </div>
     </div>
     <router-view></router-view>
