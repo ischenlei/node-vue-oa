@@ -1,6 +1,6 @@
 <template>
   <div class="CategoryList">
-    <h1>广告位列表</h1>
+    <h1>轮播图</h1>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="200"></el-table-column>
       <el-table-column prop="name" label="分类名称"></el-table-column>

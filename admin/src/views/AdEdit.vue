@@ -1,17 +1,17 @@
 <template>
   <div class="categoryEdit">
-    <h1>{{ id ? '编辑' : '新建' }}广告位</h1>
+    <h1>{{ id ? '编辑' : '新建' }}轮播图</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="名称">
-        <el-input v-model="model.name"></el-input>
+        <el-input :value="model.name" disabled></el-input>
       </el-form-item>
-      <el-form-item label="广告">
-        <el-button size="small" @click="model.items.push({})"><i class="el-icon-plus"></i> 添加广告</el-button>
+      <el-form-item label="轮播图">
+        <el-button size="small" @click="model.items.push({})"><i class="el-icon-plus"></i>添加轮播图</el-button>
         <el-row type="flex" style="flex-wrap: wrap">
           <el-col :md="24" v-for="(item,i) in model.items" :key="i">
-            <el-form-item label="跳转链接">
-              <el-input v-model="item.url"></el-input>
-            </el-form-item>
+<!--            <el-form-item label="跳转链接">-->
+<!--              <el-input v-model="item.url"></el-input>-->
+<!--            </el-form-item>-->
             <el-form-item label="图片">
               <el-upload
                 class="avatar-uploader"
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       model: {
+        name: 'swiper',
         items: []
       }
     }

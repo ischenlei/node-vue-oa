@@ -3,6 +3,7 @@ module.exports = app => {
   const mongoose = require('mongoose')
   const Article = require('../../models/Article') //相对路径引用方式
   const Category = require('../../models/Category') //相对路径引用方式
+  const Ad = require('../../models/Ad') //相对路径引用方式
   // const Article = mongoose.model('Article')
   // const Category = mongoose.model('Category')  //报错，未找到解决方案
 
@@ -80,6 +81,14 @@ module.exports = app => {
   router.get('/articles/:id', async (req, res) => {
     const data = await Article.findById(req.params.id).lean()
     res.send(data)
+  })
+
+  //获取swiper
+  router.get('/swiper/list', async (req, res) => {
+    const data = await Ad.findOne().where({
+      name: 'swiper'
+    })
+    res.send(data.items)
   })
 
   app.use('/web/api', router)

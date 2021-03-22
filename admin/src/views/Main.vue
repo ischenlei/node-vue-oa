@@ -21,9 +21,9 @@
             <i class="el-icon-message"></i>运营管理
           </template>
           <el-menu-item-group>
-            <template slot="title">广告</template>
-            <el-menu-item index="/ads/create">新建广告位</el-menu-item>
-            <el-menu-item index="/ads/list">广告位列表</el-menu-item>
+            <template slot="title">轮播图</template>
+<!--            <el-menu-item index="/ads/create">新建广告位</el-menu-item>-->
+            <el-menu-item index="/ads/list">轮播图列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="3">

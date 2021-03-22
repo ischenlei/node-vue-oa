@@ -1,11 +1,8 @@
 <template>
   <div class="home">
     <swiper ref="mySwiper" :options="swiperOptions">
-      <swiper-slide>
-        <img class="w-100 h-swiper" src="../assets/images/swiper1.png"/>
-      </swiper-slide>
-      <swiper-slide>
-        <img class="w-100 h-swiper" src="../assets/images/swiper2.png"/>
+      <swiper-slide v-for="(item, i) in swiperList" :key="i">
+        <img class="w-100 h-swiper" :src="item.image"/>
       </swiper-slide>
       <div class="swiper-pagination pagination-home" slot="pagination"></div>
     </swiper>
@@ -88,16 +85,22 @@ export default {
         }
       },
       active: 0,
-      newsCats: []
+      newsCats: [],
+      swiperList: []
     }
   },
   created() {
     this.fetchNewsCats()
+    this.fetchSwiper()
   },
   methods: {
     async fetchNewsCats() {
       const res = await this.$http.get('/news/list')
       this.newsCats = res.data
+    },
+    async fetchSwiper() {
+      const res = await this.$http.get('/swiper/list')
+      this.swiperList = res.data
     }
   }
 }
