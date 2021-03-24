@@ -59,7 +59,13 @@ export default {
     //获取父级选项
     async fetchParents() {
       const res = await this.$http.get(`rest/categories`)
-      this.parents = res.data
+      for (let item of res.data) {
+        if (!('parent' in item)) {
+          console.log('================')
+          console.log(item)
+          this.parents = [item]
+        }
+      }
     }
 
   },

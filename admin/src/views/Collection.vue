@@ -1,28 +1,28 @@
 <template>
   <div class="CategoryList">
-    <div style="margin-top: 15px;">
-      <el-select style="float: left;margin-right: 10px" v-model="type" placeholder="请选择">
-        <el-option
-          v-for="item in categories"
-          :key="item._id"
-          :label="item.name"
-          :value="item._id">
-        </el-option>
-      </el-select>
-      <el-button style="margin-right: 100px" slot="append" icon="el-icon-search" @click="searchType()">搜索</el-button>
-      <el-input style="width: 500px" placeholder="请输入内容" v-model="input" class="input-with-select">
-        <el-button slot="append" icon="el-icon-search" @click="search()">搜索</el-button>
-      </el-input>
-    </div>
-    <h1>文章列表</h1>
-    <el-table :data="items">
+<!--    <div style="margin-top: 15px;">-->
+<!--      <el-select style="float: left;margin-right: 10px" v-model="type" placeholder="请选择">-->
+<!--        <el-option-->
+<!--          v-for="item in categories"-->
+<!--          :key="item._id"-->
+<!--          :label="item.name"-->
+<!--          :value="item._id">-->
+<!--        </el-option>-->
+<!--      </el-select>-->
+<!--      <el-button style="margin-right: 100px" slot="append" icon="el-icon-search" @click="searchType()">搜索</el-button>-->
+<!--      <el-input style="width: 500px" placeholder="请输入内容" v-model="input" class="input-with-select">-->
+<!--        <el-button slot="append" icon="el-icon-search" @click="search()">搜索</el-button>-->
+<!--      </el-input>-->
+<!--    </div>-->
+    <h1>我的收藏</h1>
+    <el-table :data="likeItems">
       <el-table-column prop="_id" label="ID" width="200"></el-table-column>
       <el-table-column prop="title" label="文章名称"></el-table-column>
-      <el-table-column label="分类">
-        <template slot-scope="scope">
-          <span v-if="scope.row.categories">{{scope.row.categories.name}}</span>
-        </template>
-      </el-table-column>
+<!--      <el-table-column label="分类">-->
+<!--        <template slot-scope="scope">-->
+<!--          <span v-if="scope.row.categories[0]">{{scope.row.categories[0].name}}</span>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column
           fixed="right"
           label="操作"
@@ -34,6 +34,11 @@
             @click="setLike(scope.row._id)"
             circle>
           </el-button>
+<!--          <el-button type="danger"-->
+<!--                     size="small"-->
+<!--                     round-->
+<!--                     @click="setLike(scope.row._id)">{{ scope.row.isLike ? '取消' : '收藏' }}-->
+<!--          </el-button>-->
           <el-button type="danger"
                      size="small"
                      round
@@ -63,9 +68,10 @@
           {isLike: false},
           {categories: [{name:''}]}
         ],
-        input: '',
+        likeItems: [],
+        // input: '',
         categories: [],
-        type: '',
+        // type: '',
         likes: []
       }
     },
@@ -102,19 +108,19 @@
           await this.fetch()
         })
       },
-      async search() {
-        const res = await this.$http.post('search/article', {
-          name: this.input
-        })
-        this.items = res.data
-        // console.log(this.items)
-      },
-      async searchType() {
-        const res = await this.$http.post('search/type', {
-          type: this.type
-        })
-        this.items = res.data
-      },
+      // async search() {
+      //   const res = await this.$http.post('search/article', {
+      //     name: this.input
+      //   })
+      //   this.items = res.data
+      //   // console.log(this.items)
+      // },
+      // async searchType() {
+      //   const res = await this.$http.post('search/type', {
+      //     type: this.type
+      //   })
+      //   this.items = res.data
+      // },
       async setTop(id) {
         const res = await this.$http.post('setTop', {
           id: id
@@ -150,6 +156,13 @@
         })
         this.likes = res.data.likes
         this.addIsLike()
+        for (let item of this.items) {
+          for (let like of this.likes) {
+            if (item._id === like) {
+              this.likeItems.push(item)
+            }
+          }
+        }
       },
     },
     created() {

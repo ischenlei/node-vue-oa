@@ -6,8 +6,7 @@
       <el-table-column prop="username" label="用户名" width="200"></el-table-column>
       <el-table-column
           fixed="right"
-          label="操作"
-          width="200">
+          label="操作">
         <template slot-scope="scope">
           <el-button
             type="primary"

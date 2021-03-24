@@ -27,6 +27,8 @@ export default {
     async login() {
       const res = await this.$http.post('login', this.model)
       localStorage.token = res.data.token
+      localStorage.uid = res.data.info._id
+      this.$store.commit('setUser',res.data.info)
       await this.$router.push('/')
       this.$message({
         type: 'success',

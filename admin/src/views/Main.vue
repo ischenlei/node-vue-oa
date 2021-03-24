@@ -6,6 +6,8 @@
         unique-opened
         :default-active="$route.path"
       >
+        <el-menu-item index="/dashboard">DashBoard</el-menu-item>
+        <el-menu-item index="/collection">我的收藏</el-menu-item>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-message"></i>内容管理
@@ -59,12 +61,10 @@
         <el-dropdown>
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>查看</el-dropdown-item>
-            <el-dropdown-item>新增</el-dropdown-item>
-            <el-dropdown-item>删除</el-dropdown-item>
+            <el-dropdown-item @click.native = "logout()">退出登陆</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <span>王小虎</span>
+        <span>{{userInfo.username}}</span>
       </el-header>
 
       <!--内容区域-->
@@ -88,17 +88,34 @@
 </style>
 
 <script>
+// import { mapState } from 'vuex'
+
 export default {
   data() {
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    };
     return {
-      tableData: Array(20).fill(item),
-      openList: ['1'],
+      userInfo: {}
     }
+  },
+  // computed: mapState({
+  //   // 传字符串参数 'count' 等同于 `state => state.count`
+  //   countAlias: 'userInfo'
+  // }),
+  methods: {
+    async fetchInfo() {
+      let res = await this.$http.post('/user', {
+        id: localStorage.getItem('uid')
+      })
+      this.userInfo = res.data
+      this.$store.commit('setUser', res.data)
+    },
+    logout() {
+      localStorage.removeItem('token')
+      this.$router.push('/login')
+    }
+  },
+  created() {
+    this.fetchInfo()
   }
+
 };
 </script>

@@ -3,6 +3,7 @@ module.exports = app => {  //这里的app是一个形参
   const jwt = require('jsonwebtoken')
   const assert = require('http-assert')
   const AdminUser = require('../../models/AdminUser')
+  const Article = require('../../models/Article')
   const router = express.Router({
     mergeParams: true
   })
@@ -33,6 +34,9 @@ module.exports = app => {  //这里的app是一个形参
       const queryOptions = {}
       if (req.Model.modelName === 'Category') {
         queryOptions.populate = 'parent'
+      }
+      if (req.Model.modelName === 'Article') {
+        queryOptions.populate = 'categories'
       }
 
       const items = await req.Model.find().setOptions(queryOptions).limit(100)
@@ -82,11 +86,86 @@ module.exports = app => {  //这里的app是一个形参
     //   })
     // }
 
-    //3.返回token
+    //3.返回token和用户信息
     const token = jwt.sign({id: user._id}, app.get('secret'))
-    res.send({token})
-
+    await AdminUser.update({
+      token: token
+    })
+    const info = await AdminUser.findOne({
+      username: username,
+    })
+    res.send({token, info})
   })
+
+
+  //模糊查询文章
+  app.post('/admin/api/search/article', async (req, res) => {
+    const {name} = req.body
+    let reg = new RegExp(name);
+    console.log(reg)
+    let item = await Article.find().where({
+      title : {$regex : reg}
+    });
+    res.send(item)
+  })
+
+  //查询文章类型
+  app.post('/admin/api/search/type', async (req, res) => {
+    const {type} = req.body
+    let item = await Article.find({
+      categories: type
+    }).populate('categories');
+    res.send(item)
+  })
+
+  //置顶
+  app.post('/admin/api/setTop', async (req, res) => {
+    const {id} = req.body
+    let item = await Article.findById(id)
+    let isTop = item.isTop
+    await Article.findByIdAndUpdate(id, {
+      isTop: !isTop
+    })
+    let data = await Article.find().limit(100)
+    res.send(data)
+  })
+
+  //获取管理员信息
+  app.post('/admin/api/user', async (req, res) => {
+    let {id} = req.body
+    const data = await AdminUser.findOne({
+      _id: id
+    })
+    res.send(data)
+  })
+
+  //收藏
+  app.post('/admin/api/like', async (req, res) => {
+    let {id, username} = req.body
+    let exist = await AdminUser.findOne({likes: id})
+    // console.log(exist)
+    if (exist) {   //如果已经收藏，那么删除
+      await AdminUser.updateOne(
+        {username: username},
+        {$pull: { likes: id }}
+      )
+    } else {    //如果没有收藏，那么添加
+      await AdminUser.updateOne(
+        {username: username},
+        {$addToSet: { likes: id }}
+      )
+    }
+    let data = await AdminUser.findOne({username: username})
+    res.send(data.likes)
+  })
+
+  //取消收藏
+  // app.post('/admin/api/unlike', async (req, res) => {
+  //   let {id, username} = req.body
+  //
+  //   let data = await AdminUser.findOne({username: username})
+  //   res.send(data.likes)
+  // })
 
   //错误处理
   app.use(async (err, req, res, next) => {

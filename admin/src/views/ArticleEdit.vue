@@ -3,7 +3,7 @@
     <h1>{{ id ? '编辑' : '新建' }}文章</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="所属分类">
-        <el-select v-model="model.categories" multiple>
+        <el-select v-model="model.categories">
           <el-option
             v-for="item in categories"
             :key="item._id"
@@ -71,6 +71,7 @@ export default {
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`)
       this.categories = res.data
+      this.categories.splice(0,1)
     },
     //上传图片
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
