@@ -1,6 +1,6 @@
 <template>
   <div class="categoryEdit">
-    <h1>{{ id ? '编辑' : '新建' }}轮播图</h1>
+    <h1>编辑轮播图</h1>
     <el-form label-width="120px" @submit.native.prevent="save">
       <el-form-item label="名称">
         <el-input :value="model.name" disabled></el-input>
@@ -9,9 +9,9 @@
         <el-button size="small" @click="model.items.push({})"><i class="el-icon-plus"></i>添加轮播图</el-button>
         <el-row type="flex" style="flex-wrap: wrap">
           <el-col :md="24" v-for="(item,i) in model.items" :key="i">
-<!--            <el-form-item label="跳转链接">-->
-<!--              <el-input v-model="item.url"></el-input>-->
-<!--            </el-form-item>-->
+            <!--<el-form-item label="跳转链接">-->
+            <!--  <el-input v-model="item.url"></el-input>-->
+            <!--</el-form-item>-->
             <el-form-item label="图片">
               <el-upload
                 class="avatar-uploader"
@@ -49,7 +49,6 @@ export default {
   data() {
     return {
       model: {
-        name: 'swiper',
         items: []
       }
     }
@@ -57,29 +56,30 @@ export default {
   methods: {
     async save() {
       // let res
-      if (this.id) {
+      // await this.$http.post('swiper/edit', this.model)
+      if (this.model._id) {
         //修改
-        await this.$http.put(`rest/ads/${this.id}`, this.model)
+        await this.$http.post('swiper/edit', this.model)
       } else {
         //新建
-        await this.$http.post('rest/ads', this.model)
+        await this.$http.post('swiper/create', this.model)
       }
-      await this.$router.push('/ads/list')
+      // await this.$router.push('/ads/list')
       this.$message({
         type: 'success',
         message: '保存成功'
       })
 
     },
-    //
+    //获取轮播图
     async fetch() {
-      const res = await this.$http.get(`rest/ads/${this.id}`)
+      const res = await this.$http.get('swiper')
       this.model = Object.assign({}, this.model, res.data)
       // this.model = {...this.model, ...res.data}
     }
   },
   created() {
-    this.id && this.fetch()
+    this.fetch()
   }
 }
 </script>

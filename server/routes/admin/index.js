@@ -4,6 +4,7 @@ module.exports = app => {  //这里的app是一个形参
   const assert = require('http-assert')
   const AdminUser = require('../../models/AdminUser')
   const Article = require('../../models/Article')
+  const Swiper = require('../../models/Swiper')
   const router = express.Router({
     mergeParams: true
   })
@@ -97,6 +98,26 @@ module.exports = app => {  //这里的app是一个形参
     res.send({token, info})
   })
 
+  //获取轮播图
+  app.get('/admin/api/swiper', async (req, res) => {
+    let data = await Swiper.findOne()
+    res.send(data)
+  })
+
+  //更新轮播图
+  app.post('/admin/api/swiper/edit', async (req, res) => {
+    let data = await Swiper.updateOne({
+      name: 'swiper',
+      items: req.body.items
+    })
+    res.send(data)
+  })
+
+  //新建轮播图
+  app.post('/admin/api/swiper/create', async (req, res) => {
+    let data = await Swiper.create(req.body)
+    res.send(data)
+  })
 
   //模糊查询文章
   app.post('/admin/api/search/article', async (req, res) => {

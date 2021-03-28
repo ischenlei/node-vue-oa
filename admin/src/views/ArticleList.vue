@@ -28,12 +28,12 @@
           label="操作"
           width="400">
         <template slot-scope="scope">
-          <el-button
-            :type="scope.row.isLike ? 'warning' : ''"
-            icon="el-icon-star-off"
-            @click="setLike(scope.row._id)"
-            circle>
-          </el-button>
+          <!--<el-button-->
+          <!--  :type="scope.row.isLike ? 'warning' : ''"-->
+          <!--  icon="el-icon-star-off"-->
+          <!--  @click="setLike(scope.row._id)"-->
+          <!--  circle>-->
+          <!--</el-button>-->
           <el-button type="danger"
                      size="small"
                      round
@@ -73,12 +73,12 @@
       async fetch() {
         const res = await this.$http.get('rest/articles')
         this.items = res.data
-        for (let value of res) {
+        for (let value of res.data) {
           value.categories
         }
         console.log(res)
-        await this.fetchInfo()
-        this.addIsLike()
+        // await this.fetchInfo()
+        // this.addIsLike()
       },
       //获取目录
       async fetchCategories() {
@@ -121,40 +121,40 @@
         })
         this.items = res.data
       },
-      async setLike(id) {
-        let username = this.$store.state.userInfo.username
-        console.log(username)
-        const res = await this.$http.post('like', {
-          id: id,
-          username: username
-        })
-        this.likes = res.data
-        console.log(this.likes)
-        this.$store.commit('setLike', res.data)
-        this.addIsLike()
-      },
-      addIsLike() {
-        for (let like of this.likes) {
-          for (let item of this.items) {
-            if (item._id === like) {
-              item.isLike = true
-            }
-          }
-        }
-      },
-      async fetchInfo() {
-        const res2 = await this.$http.get('rest/articles')
-        this.items = res2.data
-        let res = await this.$http.post('/user', {
-          id: localStorage.getItem('uid')
-        })
-        this.likes = res.data.likes
-        this.addIsLike()
-      },
+      // async setLike(id) {
+      //   let username = this.$store.state.userInfo.username
+      //   console.log(username)
+      //   const res = await this.$http.post('like', {
+      //     id: id,
+      //     username: username
+      //   })
+      //   this.likes = res.data
+      //   console.log(this.likes)
+      //   this.$store.commit('setLike', res.data)
+      //   this.addIsLike()
+      // },
+      // addIsLike() {
+      //   for (let like of this.likes) {
+      //     for (let item of this.items) {
+      //       if (item._id === like) {
+      //         item.isLike = true
+      //       }
+      //     }
+      //   }
+      // },
+      // async fetchInfo() {
+      //   const res2 = await this.$http.get('rest/articles')
+      //   this.items = res2.data
+      //   let res = await this.$http.post('/user', {
+      //     id: localStorage.getItem('uid')
+      //   })
+      //   this.likes = res.data.likes
+      //   this.addIsLike()
+      // },
     },
     created() {
       this.fetch()
-      this.fetchInfo()
+      // this.fetchInfo()
       this.fetchCategories()
     },
   }

@@ -5,7 +5,7 @@ module.exports = app => {
   const assert = require('http-assert')
   const Article = require('../../models/Article') //相对路径引用方式
   const Category = require('../../models/Category') //相对路径引用方式
-  const Ad = require('../../models/Ad') //相对路径引用方式
+  const Swiper = require('../../models/Swiper') //相对路径引用方式
   const User = require('../../models/User')
   // const Article = mongoose.model('Article')
   // const Category = mongoose.model('Category')  //报错，未找到解决方案
@@ -136,7 +136,7 @@ module.exports = app => {
 
   //获取swiper
   router.get('/swiper/list', authMiddleware('user'), async (req, res) => {
-    const data = await Ad.findOne().where({
+    const data = await Swiper.findOne().where({
       name: 'swiper'
     })
     res.send(data.items)

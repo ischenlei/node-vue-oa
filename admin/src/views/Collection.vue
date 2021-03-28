@@ -79,7 +79,7 @@
       async fetch() {
         const res = await this.$http.get('rest/articles')
         this.items = res.data
-        for (let value of res) {
+        for (let value of res.data) {
           value.categories
         }
         console.log(res)

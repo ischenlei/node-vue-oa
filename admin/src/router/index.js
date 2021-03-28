@@ -11,7 +11,7 @@ import CategoryList from "../views/CategoryList"
 import ArticleEdit from "@/views/ArticleEdit";
 import ArticleList from "@/views/ArticleList";
 import AdEdit from "@/views/AdEdit";
-import AdList from "@/views/AdList";
+// import AdList from "@/views/AdList";
 import AdminUserEdit from "@/views/AdminUserEdit";
 import AdminUserList from "@/views/AdminUserList";
 import UserEdit from "@/views/UserEdit";
@@ -51,9 +51,9 @@ const routes = [
       { path: '/articles/edit/:id', component: ArticleEdit, props: true },
       { path: '/articles/list', component: ArticleList },
 
-      { path: '/ads/create', component: AdEdit },
-      { path: '/ads/edit/:id', component: AdEdit, props: true },
-      { path: '/ads/list', component: AdList },
+      // { path: '/ads/create', component: AdEdit },
+      { path: '/ads/edit', component: AdEdit, props: true },
+      // { path: '/ads/list', component: AdList },
 
       { path: '/admin_users/create', component: AdminUserEdit },
       { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true },
