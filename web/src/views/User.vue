@@ -20,7 +20,7 @@
             class="py-3 fs-lg d-flex"
             v-for="(item, index) in likes"
             :key="index"
-            @click.native="addRead(item._id)"
+            @click="addRead(item._id)"
           >
             <span class="text-info">[{{ item.categories.name }}]</span>
             <span class="px-2">|</span>

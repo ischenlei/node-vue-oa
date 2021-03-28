@@ -48,7 +48,7 @@ export default {
           type: 'category',
           data: this.chartCategory,
           axisLabel : {//坐标轴刻度标签的相关设置。
-            formatter : function(params){
+            formatter : (params) => {
               let newParamsName = "";// 最终拼接成的字符串
               let paramsNameNumber = params.length;// 实际标签的个数
               let provideNumber = 4;// 每行能显示的字的个数
