@@ -6,7 +6,7 @@
         unique-opened
         :default-active="$route.path"
       >
-        <el-menu-item index="/dashboard">DashBoard</el-menu-item>
+        <el-menu-item index="/">仪表盘</el-menu-item>
         <el-menu-item index="/collection">我的收藏</el-menu-item>
         <el-submenu index="1">
           <template slot="title">
@@ -51,6 +51,11 @@
             <template slot="title">管理员</template>
             <el-menu-item index="/admin_users/create">新建管理员</el-menu-item>
             <el-menu-item index="/admin_users/list">管理员列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">用户</template>
+            <el-menu-item index="/users/create">新建用户</el-menu-item>
+            <el-menu-item index="/users/list">用户列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>

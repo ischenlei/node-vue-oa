@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>管理员列表</h1>
+    <h1>用户列表</h1>
     <el-table :data="items">
       <el-table-column prop="_id" label="ID" width="200"></el-table-column>
       <el-table-column prop="username" label="用户名" width="200"></el-table-column>
@@ -11,7 +11,7 @@
           <el-button
             type="primary"
             size="small"
-            @click="$router.push(`/admin_users/edit/${scope.row._id}`)"
+            @click="$router.push(`/users/edit/${scope.row._id}`)"
           >编辑</el-button>
           <el-button
             type="primary"
@@ -33,7 +33,7 @@
     },
     methods: {
       async fetch() {
-        const res =await this.$http.get('rest/admin_users')
+        const res =await this.$http.get('rest/users')
         this.items = res.data
         console.log(res)
       },
@@ -44,7 +44,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async () => {
-          await this.$http.delete(`rest/admin_users/${row._id}`)
+          await this.$http.delete(`rest/users/${row._id}`)
           this.$message({
             type: 'success',
             message: '删除成功!'

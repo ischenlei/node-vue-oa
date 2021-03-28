@@ -11,12 +11,13 @@ import 'swiper/css/swiper.css'
 
 Vue.use(VueAwesomeSwiper)
 
-import axios from "axios";
-Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:3000/web/api'
-})
+import http from "./http";
+Vue.prototype.$http = http
+
+import store from './store'
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

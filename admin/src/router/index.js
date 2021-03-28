@@ -14,6 +14,8 @@ import AdEdit from "@/views/AdEdit";
 import AdList from "@/views/AdList";
 import AdminUserEdit from "@/views/AdminUserEdit";
 import AdminUserList from "@/views/AdminUserList";
+import UserEdit from "@/views/UserEdit";
+import UserList from "@/views/UserList";
 import Dashboard from "@/views/Dashboard";
 import Collection from "@/views/Collection";
 
@@ -57,7 +59,11 @@ const routes = [
       { path: '/admin_users/edit/:id', component: AdminUserEdit, props: true },
       { path: '/admin_users/list', component: AdminUserList },
 
-      { path: '/dashboard', component: Dashboard},
+      { path: '/users/create', component: UserEdit },
+      { path: '/users/edit/:id', component: UserEdit, props: true },
+      { path: '/users/list', component: UserList },
+
+      { path: '/', component: Dashboard},
       { path: '/collection', component: Collection},
     ]
   },

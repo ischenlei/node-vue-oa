@@ -9,7 +9,7 @@
           <el-input show-password v-model="model.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" native-type="submit">登陆</el-button>
+          <el-button style="width: 360px" type="primary" native-type="submit">登陆</el-button>
         </el-form-item>
       </el-form>
     </el-card>

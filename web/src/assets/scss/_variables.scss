@@ -10,6 +10,7 @@ $colors: (
   'dark': #222,
   'dark-1': #343440,
   'grey': #999,
+  'red': #e15241,
 );
 
 $border-color: map-get($colors, 'light-1');
@@ -23,6 +24,7 @@ $font-sizes: (
   md: 1,  //13px
   lg: 1.077,  //14px
   xl: 1.231,  //16px
+  xxl: 1.538,  //20px
 );
 
 $flex-jc: (

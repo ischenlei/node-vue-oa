@@ -25,6 +25,20 @@
       "font_class": "book",
       "unicode": "e60b",
       "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "18057272",
+      "name": "Like",
+      "font_class": "Like",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "20297029",
+      "name": "like",
+      "font_class": "like",
+      "unicode": "e603",
+      "unicode_decimal": 58883
     }
   ]
 }
